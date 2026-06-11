@@ -3,6 +3,8 @@ import {
   useWorkouts
 } from "../hooks/useWorkouts";
 
+import WorkoutForm from "../components/WorkoutForm";
+
 export default function WorkoutsPage() {
 
   const {
@@ -29,6 +31,8 @@ if (error) {
       <h1 className="text-3xl font-bold">
         Rutinas
       </h1>
+
+      <WorkoutForm />
 
       {workouts.map(workout => (
         <WorkoutCard
