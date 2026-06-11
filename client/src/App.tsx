@@ -1,10 +1,43 @@
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
+
+import DashboardPage from "./pages/DashboardPage";
+import WorkoutsPage from "./pages/WorkoutsPage";
+import StatsPage from "./pages/StatsPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      <h1 className="text-4xl font-bold text-green-400">
-        GymFlow 💪
-      </h1>
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen p-6">
+
+        <Routes>
+          <Route
+            path="/"
+            element={<DashboardPage />}
+          />
+
+          <Route
+            path="/workouts"
+            element={<WorkoutsPage />}
+          />
+
+          <Route
+            path="/stats"
+            element={<StatsPage />}
+          />
+
+          <Route
+            path="*"
+            element={<NotFoundPage />}
+          />
+        </Routes>
+
+      </div>
+    </BrowserRouter>
   );
 }
 

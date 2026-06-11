@@ -1,0 +1,24 @@
+const express = require("express");
+const cors = require("cors");
+
+const workoutRoutes =
+  require("./routes/workoutRoutes");
+
+const app = express();
+
+app.use(cors());
+
+app.use(express.json());
+
+app.use(
+  "/api/v1/workouts",
+  workoutRoutes
+);
+
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.log(
+    `Servidor funcionando en puerto ${PORT}`
+  );
+});
