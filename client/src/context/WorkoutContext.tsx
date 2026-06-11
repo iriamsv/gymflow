@@ -12,17 +12,20 @@ import {
 
 import type { Workout } from "../types/Workout";
 
-
-const WorkoutContext = createContext<WorkoutContextType | null>(null);
-
-interface WorkoutProviderProps {
-  children: ReactNode;
-}
-
 interface WorkoutContextType {
   workouts: Workout[];
   loading: boolean;
   error: string | null;
+  refreshWorkouts: () => Promise<void>;
+}
+
+const WorkoutContext =
+  createContext<WorkoutContextType | null>(
+    null
+  );
+
+interface WorkoutProviderProps {
+  children: ReactNode;
 }
 
 export function WorkoutProvider({
@@ -32,37 +35,53 @@ export function WorkoutProvider({
   const [workouts, setWorkouts] =
     useState<Workout[]>([]);
 
-    const [loading, setLoading] =
-  useState(true);
+  const [loading, setLoading] =
+    useState(true);
 
-const [error, setError] =
-  useState<string | null>(null);
+  const [error, setError] =
+    useState<string | null>(null);
 
-  useEffect(() => {
+  const refreshWorkouts = async () => {
 
-  obtenerWorkouts()
+    try {
 
-    .then(data => {
+      setLoading(true);
+
+      const data =
+        await obtenerWorkouts();
+
       setWorkouts(data);
-      setLoading(false);
-    })
 
-    .catch(() => {
+      setError(null);
+
+    } catch {
+
       setError(
         "No se pudieron cargar las rutinas"
       );
-      setLoading(false);
-    });
 
-}, []);
+    } finally {
+
+      setLoading(false);
+
+    }
+
+  };
+
+  useEffect(() => {
+
+    refreshWorkouts();
+
+  }, []);
 
   return (
     <WorkoutContext.Provider
       value={{
-  workouts,
-  loading,
-  error
-}}
+        workouts,
+        loading,
+        error,
+        refreshWorkouts
+      }}
     >
       {children}
     </WorkoutContext.Provider>
@@ -71,7 +90,8 @@ const [error, setError] =
 
 export function useWorkoutContext() {
 
-  const context = useContext(WorkoutContext);
+  const context =
+    useContext(WorkoutContext);
 
   if (!context) {
     throw new Error(

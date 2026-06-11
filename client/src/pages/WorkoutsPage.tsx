@@ -8,10 +8,11 @@ import { eliminarWorkout } from "../api/client";
 export default function WorkoutsPage() {
 
   const {
-    workouts,
-    loading,
-    error
-  } = useWorkouts();
+  workouts,
+  loading,
+  error,
+  refreshWorkouts
+} = useWorkouts();
 
   const handleDelete = useCallback(
     async (id: number) => {
@@ -19,6 +20,8 @@ export default function WorkoutsPage() {
       try {
 
         await eliminarWorkout(id);
+
+await refreshWorkouts();
 
         alert(
           "Rutina eliminada. Recarga la página para verla actualizada."

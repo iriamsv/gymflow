@@ -2,7 +2,12 @@ import { useState } from "react";
 
 import { crearWorkout } from "../api/client";
 
+import { useWorkouts } from "../hooks/useWorkouts";
+
 export default function WorkoutForm() {
+
+  const { refreshWorkouts } =
+    useWorkouts();
 
   const [nombre, setNombre] =
     useState("");
@@ -14,36 +19,38 @@ export default function WorkoutForm() {
     useState(0);
 
   const handleSubmit = async (
-  event: React.FormEvent
-) => {
+    event: React.FormEvent
+  ) => {
 
-  event.preventDefault();
+    event.preventDefault();
 
-  try {
+    try {
 
-    await crearWorkout({
-      nombre,
-      categoria,
-      ejercicios
-    });
+      await crearWorkout({
+        nombre,
+        categoria,
+        ejercicios
+      });
 
-    alert("Rutina creada");
+      await refreshWorkouts();
 
-    setNombre("");
-    setCategoria("");
-    setEjercicios(0);
+      alert("Rutina creada");
 
-  } catch (error) {
+      setNombre("");
+      setCategoria("");
+      setEjercicios(0);
 
-    console.error(error);
+    } catch (error) {
 
-    alert(
-      "Error al crear la rutina"
-    );
+      console.error(error);
 
-  }
+      alert(
+        "Error al crear la rutina"
+      );
 
-};
+    }
+
+  };
 
   return (
     <form
@@ -85,7 +92,15 @@ export default function WorkoutForm() {
 
       <button
         type="submit"
-        className="bg-green-500 px-4 py-2 rounded"
+        className="
+          bg-green-500
+          hover:bg-green-600
+          text-white
+          px-4
+          py-2
+          rounded-lg
+          transition
+        "
       >
         Crear rutina
       </button>
