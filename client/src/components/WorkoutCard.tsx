@@ -10,34 +10,69 @@ export default function WorkoutCard({
   onDelete
 }: WorkoutCardProps) {
   return (
-    <div className="rounded-lg border p-4 shadow">
+    <div
+      className="
+        bg-white
+        rounded-xl
+        shadow-md
+        p-6
+        hover:shadow-xl
+        transition
+      "
+    >
+      <div className="flex justify-between items-start">
 
-      <h2 className="text-xl font-bold">
-        {workout.nombre}
-      </h2>
+        <div>
 
-      <p>
-        Categoría: {workout.categoria}
-      </p>
+          <h2 className="text-2xl font-bold">
+            💪 {workout.nombre}
+          </h2>
 
-      <p>
-        Ejercicios: {workout.ejercicios}
-      </p>
+          <p className="text-gray-600 mt-2">
+            Categoría: {workout.categoria}
+          </p>
 
-      {workout.favorita && (
-        <span>
-          ⭐ Favorita
-        </span>
-      )}
+          <p className="text-gray-600">
+            Ejercicios: {workout.ejercicios}
+          </p>
+
+        </div>
+
+        {workout.favorita && (
+          <span
+            className="
+              bg-yellow-100
+              text-yellow-700
+              px-3
+              py-1
+              rounded-full
+              text-sm
+              font-medium
+            "
+          >
+            ⭐
+          </span>
+        )}
+
+      </div>
 
       <button
-  onClick={() =>
-    onDelete?.(workout.id)
-  }
-  className="mt-2 bg-red-500 px-3 py-1 rounded"
->
-  Eliminar
-</button>
+        onClick={() =>
+          onDelete?.(workout.id)
+        }
+        className="
+          mt-6
+          bg-red-500
+          hover:bg-red-600
+          text-white
+          px-4
+          py-2
+          rounded-lg
+          transition
+        "
+      >
+        Eliminar
+      </button>
 
     </div>
   );

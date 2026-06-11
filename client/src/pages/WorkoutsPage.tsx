@@ -1,8 +1,5 @@
 import WorkoutCard from "../components/WorkoutCard";
-import {
-  useWorkouts
-} from "../hooks/useWorkouts";
-
+import { useWorkouts } from "../hooks/useWorkouts";
 import WorkoutForm from "../components/WorkoutForm";
 
 import { useCallback } from "react";
@@ -11,46 +8,46 @@ import { eliminarWorkout } from "../api/client";
 export default function WorkoutsPage() {
 
   const {
-  workouts,
-  loading,
-  error
-} = useWorkouts();
+    workouts,
+    loading,
+    error
+  } = useWorkouts();
 
-const handleDelete = useCallback(
-  async (id: number) => {
+  const handleDelete = useCallback(
+    async (id: number) => {
 
-    try {
+      try {
 
-      await eliminarWorkout(id);
+        await eliminarWorkout(id);
 
-      alert(
-        "Rutina eliminada. Recarga la página para verla actualizada."
-      );
+        alert(
+          "Rutina eliminada. Recarga la página para verla actualizada."
+        );
 
-    } catch (error) {
+      } catch (error) {
 
-      console.error(error);
+        console.error(error);
 
-    }
+      }
 
-  },
-  []
-);
-
-if (loading) {
-  return <p>Cargando rutinas...</p>;
-}
-
-if (error) {
-  return (
-    <p className="text-red-500">
-      {error}
-    </p>
+    },
+    []
   );
-}
+
+  if (loading) {
+    return <p>Cargando rutinas...</p>;
+  }
+
+  if (error) {
+    return (
+      <p className="text-red-500">
+        {error}
+      </p>
+    );
+  }
 
   return (
-    <div className="space-y-4">
+    <div className="max-w-6xl mx-auto space-y-6">
 
       <h1 className="text-3xl font-bold">
         Rutinas
@@ -58,13 +55,17 @@ if (error) {
 
       <WorkoutForm />
 
-      {workouts.map(workout => (
-        <WorkoutCard
-  key={workout.id}
-  workout={workout}
-  onDelete={handleDelete}
-/>
-      ))}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        {workouts.map(workout => (
+          <WorkoutCard
+            key={workout.id}
+            workout={workout}
+            onDelete={handleDelete}
+          />
+        ))}
+
+      </div>
 
     </div>
   );
