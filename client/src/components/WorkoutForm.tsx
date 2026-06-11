@@ -4,7 +4,13 @@ import { crearWorkout } from "../api/client";
 
 import { useWorkouts } from "../hooks/useWorkouts";
 
-export default function WorkoutForm() {
+interface WorkoutFormProps {
+  onSuccess?: () => void;
+}
+
+export default function WorkoutForm({
+  onSuccess
+}: WorkoutFormProps) {
 
   const { refreshWorkouts } =
     useWorkouts();
@@ -34,6 +40,8 @@ export default function WorkoutForm() {
 
       await refreshWorkouts();
 
+      onSuccess?.();
+
       alert("Rutina creada");
 
       setNombre("");
@@ -55,7 +63,13 @@ export default function WorkoutForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-4 border p-4 rounded"
+      className="
+  bg-white
+  rounded-xl
+  shadow-md
+  p-6
+  space-y-4
+"
     >
 
       <input
@@ -65,7 +79,12 @@ export default function WorkoutForm() {
         onChange={(e) =>
           setNombre(e.target.value)
         }
-        className="border p-2 w-full"
+        className="
+  border
+  rounded-lg
+  p-3
+  w-full
+"
       />
 
       <input

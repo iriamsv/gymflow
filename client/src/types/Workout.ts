@@ -1,5 +1,5 @@
 export interface Workout {
-  id: string;
+  id: number;
   nombre: string;
   categoria: string;
   ejercicios: number;

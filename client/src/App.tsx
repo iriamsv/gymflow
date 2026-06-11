@@ -16,7 +16,16 @@ function App() {
 
   <Navbar />
 
-  <div className="min-h-screen p-6">
+  <div
+  className="
+    min-h-screen
+    p-6
+    bg-gradient-to-br
+    from-slate-100
+    via-gray-100
+    to-slate-200
+  "
+>
 
     <Routes>
 

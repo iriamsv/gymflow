@@ -4,18 +4,9 @@ import {
 
 export function useWorkouts() {
 
-  const {
-    workouts,
-    loading,
-    error,
-    refreshWorkouts
-  } = useWorkoutContext();
+  const context =
+    useWorkoutContext();
 
-  return {
-    workouts,
-    loading,
-    error,
-    refreshWorkouts
-  };
+  return context;
 
 }

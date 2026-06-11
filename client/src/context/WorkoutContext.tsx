@@ -70,7 +70,7 @@ export function WorkoutProvider({
 
   useEffect(() => {
 
-    refreshWorkouts();
+    void refreshWorkouts();
 
   }, []);
 
