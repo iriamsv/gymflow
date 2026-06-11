@@ -5,6 +5,9 @@ import {
 
 import WorkoutForm from "../components/WorkoutForm";
 
+import { useCallback } from "react";
+import { eliminarWorkout } from "../api/client";
+
 export default function WorkoutsPage() {
 
   const {
@@ -12,6 +15,27 @@ export default function WorkoutsPage() {
   loading,
   error
 } = useWorkouts();
+
+const handleDelete = useCallback(
+  async (id: number) => {
+
+    try {
+
+      await eliminarWorkout(id);
+
+      alert(
+        "Rutina eliminada. Recarga la página para verla actualizada."
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+
+  },
+  []
+);
 
 if (loading) {
   return <p>Cargando rutinas...</p>;
@@ -36,9 +60,10 @@ if (error) {
 
       {workouts.map(workout => (
         <WorkoutCard
-          key={workout.id}
-          workout={workout}
-        />
+  key={workout.id}
+  workout={workout}
+  onDelete={handleDelete}
+/>
       ))}
 
     </div>

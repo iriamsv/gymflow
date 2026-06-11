@@ -43,3 +43,23 @@ export async function crearWorkout(workout: {
 
   return response.json();
 }
+
+export async function eliminarWorkout(
+  id: number
+) {
+
+  const response = await fetch(
+    `${API_URL}/${id}`,
+    {
+      method: "DELETE"
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "Error al eliminar workout"
+    );
+  }
+
+  return response.json();
+}

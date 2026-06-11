@@ -2,10 +2,12 @@ import type { Workout } from "../types/Workout";
 
 interface WorkoutCardProps {
   workout: Workout;
+  onDelete?: (id: number) => void;
 }
 
 export default function WorkoutCard({
-  workout
+  workout,
+  onDelete
 }: WorkoutCardProps) {
   return (
     <div className="rounded-lg border p-4 shadow">
@@ -27,6 +29,15 @@ export default function WorkoutCard({
           ⭐ Favorita
         </span>
       )}
+
+      <button
+  onClick={() =>
+    onDelete?.(workout.id)
+  }
+  className="mt-2 bg-red-500 px-3 py-1 rounded"
+>
+  Eliminar
+</button>
 
     </div>
   );
